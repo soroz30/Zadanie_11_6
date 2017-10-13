@@ -27,7 +27,10 @@ $(function() {
             });
 
             $columnAddCard.click(function() {
-                self.addCard(new Card(prompt("Enter the name of the card") || 'Card'));
+                var cardName = prompt("Enter the name of the card");
+                if (cardName) {
+                    self.addCard(new Card(cardName));
+                }
             });
 
             $column.append($columnTitle)
@@ -46,7 +49,7 @@ $(function() {
         removeColumn: function() {
             this.$element.remove();
         }
-    }
+    };
 
     function Card(description) {
         var self = this;
@@ -75,7 +78,7 @@ $(function() {
         removeCard: function() {
             this.$element.remove();
         }
-    }
+    };
 
     function Board(name) {
         var self = this;
@@ -92,19 +95,22 @@ $(function() {
             var $boardColumnContainer = $('<div>').addClass('column-container');
 
             $boardAddColumn.click(function() {
-                self.addColumn(new Column(prompt('Enter the name of the column') || 'Column'));
+                var columnName = prompt('Enter the name of the column');
+                if (columnName) {
+                    self.addColumn(new Column(columnName));
+                }
             });
 
             $boardDelete.click(function() {
                 self.removeBoard();
-            })
+            });
 
             $board.append($boardTitle)
                   .append($boardDelete)
                   .append($boardAddColumn)
-                  .append($boardColumnContainer)
+                  .append($boardColumnContainer);
 
-            return $board
+            return $board;
         }
     }
 
@@ -116,18 +122,20 @@ $(function() {
         removeBoard: function() {
             this.$element.remove();
         }
-    }
+    };
 
     function initSortable() {
         $('.column-card-list').sortable({
           connectWith: '.column-card-list',
           placeholder: 'card-placeholder'
         }).disableSelection();
-      }
+    }
 
     $('.create-board').click(function() {
-        var name = prompt('Enter a board name') || 'Board';
-        var board = new Board(name);
+        var boardName = prompt('Enter a board name');
+        if (boardName) {
+            var board = new Board(boardName);
             $('#main').append(board.$element);
+        }
     });
 });
